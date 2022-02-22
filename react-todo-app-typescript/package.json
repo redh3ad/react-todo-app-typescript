@@ -2,6 +2,7 @@
   "name": "react-todo-app-typescript",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://github.com/redh3ad/react-todo-app-typescript/tree/main/react-todo-app-typescript",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
