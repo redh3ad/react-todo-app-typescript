@@ -17,7 +17,6 @@ const handleAdd = (e:FormEvent) =>{
     setTodo('');
   }
 }
-
   return (
     <div className="App">
       <span className='header'>Taskify</span>
