@@ -1,29 +1,68 @@
-import React,{FC, FormEvent, useState} from 'react';
+import React, { FC, FormEvent, useState } from 'react';
 import './App.scss';
 import Input from './components/Input/Input';
-import {Todo} from "./model";
+import { Todo } from './model';
 import TodoList from './components/TodoList/TodoList';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 
+const App: FC = () => {
+  const [todo, setTodo] = useState<string>('');
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [complitedTodos, setComplitedTodos] = useState<Todo[]>([]);
 
-const App:FC = () => {
+  const handleAdd = (e: FormEvent) => {
+    e.preventDefault();
+    if (todo) {
+      setTodos([...todos, { id: Date.now(), todo, isDone: false }]);
+      setTodo('');
+    }
+  };
 
-const [todo, setTodo] = useState<string>('');
-const [todos, setTodos] = useState<Todo[]>([]);
+  const onDragEnd = (result: DropResult) => {
+    const { source, destination } = result;
+    if (!destination) return;
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    )
+      return;
 
-const handleAdd = (e:FormEvent) =>{
-  e.preventDefault();
-  if(todo){
-    setTodos([...todos,{ id:Date.now(), todo, isDone: false}]);
-    setTodo('');
-  }
-}
+    let add,
+      active = todos,
+      complite = complitedTodos;
+
+    if (source.droppableId === 'TodosList') {
+      add = active[source.index];
+      active.splice(source.index, 1);
+    } else {
+      add = complite[source.index];
+      complite.splice(source.index, 1);
+    }
+
+    if (destination.droppableId === 'TodosList') {
+      active.splice(destination.index, 0, add);
+    } else {
+      complite.splice(destination.index, 0, add);
+    }
+
+    setComplitedTodos(complite);
+    setTodos(active);
+  };
+
   return (
-    <div className="App">
-      <span className='header'>Taskify</span>
-      <Input todo={todo} setTodo={setTodo} handleAdd={handleAdd}/>
-      <TodoList todos={todos} setTodos={setTodos} />
-    </div>
+    <DragDropContext onDragEnd={onDragEnd}>
+      <div className='App'>
+        <span className='header'>Taskify</span>
+        <Input todo={todo} setTodo={setTodo} handleAdd={handleAdd} />
+        <TodoList
+          todos={todos}
+          setTodos={setTodos}
+          complitedTodos={complitedTodos}
+          setComplitedTodos={setComplitedTodos}
+        />
+      </div>
+    </DragDropContext>
   );
-}
+};
 
 export default App;

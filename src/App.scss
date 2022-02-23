@@ -8,7 +8,7 @@
 
 .App {
   font-family: 'Neucha', cursive;
-  min-width: 100vw;
+  width: 100vw;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -28,40 +28,79 @@
     }
   }
 
-  .todos {
+  .container {
     display: flex;
+    width: 95%;
+    margin-top: 10px;
     justify-content: space-evenly;
-    width: 90%;
-    flex-wrap: wrap;
+    align-items: flex-start;
 
-    .todos__single {
-      display: flex;
-      border-radius: 5px;
-      padding: 20px;
+    @media screen and (max-width: 700px) {
+      width: 95%;
+      flex-direction: column;
       align-items: center;
-      margin-top: 15px;
-      background-image: url('https://img.freepik.com/free-photo/crumpled-yellow-paper-background-close-up_60487-2390.jpg?size=626&ext=jpg');
+    }
 
-      .todos__single-icons {
+    .todos {
+      display: flex;
+      width: 45%;
+      flex-direction: column;
+      padding: 15px;
+      border-radius: 5px;
+      background-color: rgb(50, 195, 205);
+
+      &.remove {
+        background-color: rgb(235, 103, 80);
+      }
+
+      @media screen and(max-width:1100px) {
+        width: 45%;
+      }
+
+      @media screen and (max-width: 700px) {
+        width: 95%;
+        margin-bottom: 10px;
+      }
+
+      .todos__header {
+        font-size: 30px;
+        color: white;
+      }
+
+      .todos__single {
         display: flex;
-        padding-top: 5px;
-      }
+        border-radius: 5px;
+        padding: 20px;
+        align-items: center;
+        margin-top: 15px;
+        background-image: url('https://img.freepik.com/free-photo/crumpled-yellow-paper-background-close-up_60487-2390.jpg?size=626&ext=jpg');
+        transition: 0.2s;
 
-      .todos__single-text {
-        max-width: 300px;
-        flex: 1;
-        padding: 5px;
-        border: none;
-        font-size: 20px;
-        &:focus {
-          outline: none;
+        &:hover {
+          box-shadow: 0 0 5px black;
+          transform: scale(1.03);
         }
-      }
 
-      .icon {
-        margin-left: 10px;
-        font-size: 25px;
-        cursor: pointer;
+        .todos__single-icons {
+          display: flex;
+          padding-top: 5px;
+        }
+
+        .todos__single-text {
+          flex: 1;
+          padding: 5px;
+          border: none;
+          font-size: 20px;
+          &:focus {
+            outline: none;
+          }
+        }
+
+        .icon {
+          margin-left: 10px;
+          font-size: 25px;
+          cursor: pointer;
+        }
       }
     }
   }
