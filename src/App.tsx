@@ -7,8 +7,19 @@ import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 
 const App: FC = () => {
   const [todo, setTodo] = useState<string>('');
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [complitedTodos, setComplitedTodos] = useState<Todo[]>([]);
+  const [todos, setTodos] = useState<Todo[]>([
+    { id: 1, todo: 'Task 1 < Drag and Drop Tasks >', isDone: false },
+    {
+      id: 2,
+      todo: 'Task 2 < Add ToDo, Change ToDo, remove and change status >',
+      isDone: false,
+    },
+    { id: 3, todo: 'Task 3 < Completed Task >', isDone: true },
+  ]);
+  const [complitedTodos, setComplitedTodos] = useState<Todo[]>([
+    { id: 4, todo: 'Task 4 < Uncompleted Task >', isDone: false },
+    { id: 5, todo: 'Task 5 < Completed Task >', isDone: true },
+  ]);
 
   const handleAdd = (e: FormEvent) => {
     e.preventDefault();
